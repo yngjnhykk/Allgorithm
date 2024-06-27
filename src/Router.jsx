@@ -4,11 +4,12 @@ import ListPage from "./pages/ListPage/ListPage";
 import Register from "./pages/ListPage/Register";
 import Simulator from "./pages/MainPage/Simulator";
 import Dashboard from "./pages/Dashboard";
+import MainPage from "./pages/MainPage/MainPage";
 
 function Router() {
   return (
     <Routes>
-      <Route path="/" element={<ListPage />}></Route>
+      <Route path="/" element={<MainPage />}></Route>
       <Route path="/register" element={<Register />}></Route>
       <Route path="/simulator" element={<Simulator />}></Route>
       <Route path="/dashboard/:id" element={<Dashboard />}></Route>
