@@ -14,7 +14,7 @@ function App() {
           alignItems: "center",
         }}
       >
-        <div style={{ maxWidth: 1728 }}>
+        <div style={{ maxWidth: 1728, width: "100%" }}>
           <BrowserRouter>
             <Router />
           </BrowserRouter>
