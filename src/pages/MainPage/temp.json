@@ -1,0 +1,168 @@
+{
+  "name": "CII",
+  "parameter": [
+    "data"
+  ],
+  "input": [
+    {
+      "name": "Ship Type",
+      "detail": {
+        "title": "Ship Information",
+        "parameter_name": "ship_type",
+        "type": "string",
+        "form_type": "select",
+        "options": [
+          "Bulk Carrier",
+          "Gas Carrier",
+          "Tanker",
+          "Container Ship",
+          "Refrigerated Cargo Carrier",
+          "Combination Carrier",
+          "LNG Carrier",
+          "Ro-Ro Cargo Ship (Vehicle Carrier)",
+          "Ro-Ro Cargo Ship",
+          "Ro-Ro Passenger Ship",
+          "Cruise Passenger Ship"
+        ],
+        "example": "Bulk Carrier"
+      }
+    },
+    {
+      "name": "DWT at Summer Load Draught",
+      "detail": {
+        "title": "Ship Information",
+        "parameter_name": "dwt",
+        "type": "string",
+        "form_type": "input",
+        "example": 59999
+      }
+    },
+    {
+      "name": "Gross Tonnage",
+      "detail": {
+        "title": "Ship Information",
+        "parameter_name": "gt",
+        "type": "string",
+        "form_type": "input",
+        "example": 32456
+      }
+    },
+    {
+      "name": "Diesel/Gas Oil",
+      "detail": {
+        "title": "Type Of Fuels",
+        "parameter_name": "diesel",
+        "type": "string",
+        "form_type": "input",
+        "example": 0
+      }
+    },
+    {
+      "name": "Heavy Fuel Oil",
+      "detail": {
+        "title": "Type Of Fuels",
+        "parameter_name": "hfo",
+        "type": "string",
+        "form_type": "input",
+        "example": 0
+      }
+    },
+    {
+      "name": "Light Fuel Oil",
+      "detail": {
+        "title": "Type Of Fuels",
+        "parameter_name": "lfo",
+        "type": "string",
+        "form_type": "input",
+        "example": 0
+      }
+    },
+    {
+      "name": "LPG Propane",
+      "detail": {
+        "title": "Type Of Fuels",
+        "parameter_name": "lpg-p",
+        "type": "string",
+        "form_type": "input",
+        "example": 0
+      }
+    },
+    {
+      "name": "LPG Butane",
+      "detail": {
+        "title": "Type Of Fuels",
+        "parameter_name": "lpg-b",
+        "type": "string",
+        "form_type": "input",
+        "example": 0
+      }
+    },
+    {
+      "name": "Liquefied Natural Gas",
+      "detail": {
+        "title": "Type Of Fuels",
+        "parameter_name": "lng",
+        "type": "string",
+        "form_type": "input",
+        "example": 0
+      }
+    },
+    {
+      "name": "Methanol",
+      "detail": {
+        "title": "Type Of Fuels",
+        "parameter_name": "methanol",
+        "type": "string",
+        "form_type": "input",
+        "example": 0
+      }
+    },
+    {
+      "name": "Ethanol",
+      "detail": {
+        "title": "Type Of Fuels",
+        "parameter_name": "ethanol",
+        "type": "string",
+        "form_type": "input",
+        "example": 0
+      }
+    },
+    {
+      "name": "Total Distance Traveled",
+      "detail": {
+        "title": "Voyage Information",
+        "parameter_name": "distance",
+        "type": "string",
+        "form_type": "input",
+        "example": 120000
+      }
+    },
+    {
+      "name": "Reduction Factor",
+      "detail": {
+        "title": "Etc",
+        "parameter_name": "reduction_factor",
+        "type": "string",
+        "form_type": "select",
+        "options": [
+          "2019",
+          "2020",
+          "2021",
+          "2022",
+          "2023",
+          "2024",
+          "2025",
+          "2026"
+        ],
+        "example": "2024"
+      }
+    }
+  ],
+  "return": {
+    "required_cii": "",
+    "attained_cii": "",
+    "grade": ""
+  },
+  "content": "",
+  "example": ""
+}
