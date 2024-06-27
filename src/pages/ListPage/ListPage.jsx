@@ -4,7 +4,7 @@ import styled from "styled-components";
 function List() {
   return (
     <Wrap>
-      <div style={{ fontSize: 35, marginTop: 100 }}>[선박 관리]</div>
+      <div style={{ fontSize: 35, marginTop: 100 }}></div>
     </Wrap>
   );
 }

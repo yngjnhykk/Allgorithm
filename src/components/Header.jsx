@@ -1,27 +1,18 @@
 import React from "react";
-import styled from "styled-components";
 
 function Header() {
   return (
-    <Wrap>
-      <div style={{ fontSize: 32 }}>CII</div>
-      <div style={{ display: "flex", gap: 50, fontSize: 20 }}>
-        <div>선박 관리</div>
+    <div className="flex flex-row justify-between items-center bg-Cmain text-white h-[70px] px-[50px]">
+      <div className="text-[32px]">Allgorithm</div>
+      <div className="flex gap-[50px] text-[20px] items-center">
+        <div>데이터 관리</div>
         <div>시뮬레이터</div>
+        <button className="bg-white text-Cmain w-[10rem] h-[3rem] rounded-sm pointer font-[32px]">
+          + 새 알고리즘
+        </button>
       </div>
-    </Wrap>
+    </div>
   );
 }
 
 export default Header;
-
-const Wrap = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #0c1427;
-  color: white;
-  height: 70px;
-  padding: 0px 120px;
-`;
