@@ -10,11 +10,10 @@ function Option({
   updateOption,
   removeOption,
 }) {
-  console.log(detail.form_type);
   return (
     <>
       {/* 셀렉트 */}
-      {detail.form_type === "select" && (
+      {detail.type === "select" && (
         <div className="flex gap-2 mt-6">
           <input
             type="text"
@@ -43,7 +42,7 @@ function Option({
       )}
 
       {/* 오브젝트 */}
-      {detail.form_type === "object" && (
+      {detail.type === "object" && (
         <div className="flex gap-2 mt-6">
           <input
             type="text"

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import Preview from "./Preview";
 import Define from "./Define/Define";
+import { postAlgorithm } from "../../api/newAlgorithm";
 
 function NewAlgorithm() {
-  const [name, setName] = useState("");
+  const [name, setName] = useState("CII");
 
   const [inputs, setInputs] = useState([
     {
@@ -34,7 +35,7 @@ function NewAlgorithm() {
         title: "Ship Information",
         parameter_name: "dwt",
         type: "input",
-        example: 0,
+        example: 69999,
       },
     },
     {
@@ -43,7 +44,7 @@ function NewAlgorithm() {
         title: "Ship Information",
         parameter_name: "gt",
         type: "input",
-        example: 0,
+        example: 51164,
       },
     },
     {
@@ -56,7 +57,7 @@ function NewAlgorithm() {
           {
             name: "Diesel/Gas Oil",
             parameter_name: "diesel",
-            value: 0,
+            value: 26,
           },
           {
             name: "Heavy Fuel Oil",
@@ -66,7 +67,7 @@ function NewAlgorithm() {
           {
             name: "Light Fuel Oil",
             parameter_name: "lfo",
-            value: 0,
+            value: 5693,
           },
           {
             name: "LPG Propane",
@@ -103,7 +104,7 @@ function NewAlgorithm() {
         title: "Voyage Information",
         parameter_name: "distance",
         type: "input",
-        example: 0,
+        example: 61523,
       },
     },
     {
@@ -122,10 +123,19 @@ function NewAlgorithm() {
           "2025",
           "2026",
         ],
-        example: "",
+        example: "2024",
       },
     },
   ]);
+
+  const [content, setContent] = useState(``);
+
+  //   console.log({
+  //     name,
+  //     inputs,
+  //     content,
+  //   });
+  console.log(content);
 
   // ---------------------------------------------------------------------------------
   //
@@ -270,6 +280,23 @@ function NewAlgorithm() {
     setInputs(newinputs);
   };
 
+  const updateContent = (newContent) => {
+    setContent(newContent);
+  };
+
+  // newAlgorithm 저장 ----------------------------------------
+
+  const onClickRegisterBtn = () => {
+    const newAlgorithm = {
+      name,
+      parameter: ["data"],
+      content,
+    };
+    postAlgorithm(newAlgorithm);
+  };
+
+  // ----------------------------------------------------------
+
   return (
     <div className="p-12 w-full ">
       <div className="mt-10 text-3xl font-medium">
@@ -278,7 +305,7 @@ function NewAlgorithm() {
       </div>
       <div className="grid grid-cols-5  mt-6 gap-4">
         <div className="col-span-2">
-          <Preview name={name} inputs={inputs} />
+          <Preview name={name} inputs={inputs} content={content} />
         </div>
         <div className="col-span-3">
           <Define
@@ -292,6 +319,9 @@ function NewAlgorithm() {
             removeOption={removeOption}
             updateDetail={updateDetail}
             updateOption={updateOption}
+            content={content}
+            updateContent={updateContent}
+            onClickRegisterBtn={onClickRegisterBtn}
           />
         </div>
       </div>

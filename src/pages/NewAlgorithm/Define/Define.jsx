@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Input from "./Input";
+import { postAlgorithm } from "../../../api/newAlgorithm";
 
 function Define({
   name,
@@ -15,6 +16,11 @@ function Define({
   updateDetail,
 
   updateOption,
+
+  content,
+  updateContent,
+
+  onClickRegisterBtn,
 }) {
   return (
     <div className="bg-white p-6 rounded-lg space-y-6 border-solid border-2 border-gray-300">
@@ -72,8 +78,20 @@ function Define({
         <div className="text-lg">Content</div>
         <textarea
           className="w-full h-48 p-2 border rounded"
-          placeholder="Code..."
+          placeholder="함수 내용에 들어갈 코드를 입력해주세요"
+          value={content}
+          onChange={(e) => {
+            updateContent(e.target.value);
+          }}
         ></textarea>
+      </div>
+      <div className="flex items-center justify-center">
+        <button
+          className="bg-Cmain w-40 h-11 rounded-md text-white"
+          onClick={onClickRegisterBtn}
+        >
+          알고리즘 등록
+        </button>
       </div>
     </div>
   );

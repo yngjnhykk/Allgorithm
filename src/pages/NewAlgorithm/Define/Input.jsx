@@ -26,7 +26,7 @@ function Input({
           placeholder="입력값..."
           value={input.name}
           onChange={(e) => updateInputTitle(inputIndex, e.target.value)}
-          className="mb-2 p-1 text-xl border-none rounded"
+          className="mb-2 p-1 text-xl border-none rounded w-full"
         />
         <div>
           <button
@@ -45,7 +45,7 @@ function Input({
           placeholder="소제목"
           value={detail.title}
           onChange={(e) => updateDetail(inputIndex, "title", e.target.value)}
-          className="flex-1 p-1 h-14 text-center border-[1px] border-gray-300 rounded"
+          className="flex-1 p-1 h-14 text-center border-[1px] border-gray-300 rounded w-full"
         />
         {/* 변수명 */}
         <input
@@ -55,15 +55,13 @@ function Input({
           onChange={(e) =>
             updateDetail(inputIndex, "parameter_name", e.target.value)
           }
-          className="flex-1 p-1 h-14 text-center border-[1px] border-gray-300 rounded"
+          className="flex-1 p-1 h-14 text-center border-[1px] border-gray-300 rounded w-full"
         />
         {/* 타입 */}
         <select
-          value={detail.form_type}
-          onChange={(e) =>
-            updateDetail(inputIndex, "form_type", e.target.value)
-          }
-          className="flex-1 p-1 h-14 text-center border-[1px] border-gray-300 rounded"
+          value={detail.type}
+          onChange={(e) => updateDetail(inputIndex, "type", e.target.value)}
+          className="flex-1 p-1 h-14 text-center border-[1px] border-gray-300 rounded w-full"
         >
           <option value="text">Text</option>
           <option value="number">Number</option>
@@ -72,7 +70,7 @@ function Input({
         </select>
 
         {/* 예제 */}
-        {detail.form_type !== "object" && (
+        {detail.type !== "object" && (
           <input
             type="text"
             placeholder="예제 값"
@@ -85,11 +83,11 @@ function Input({
                 e.target.value
               )
             }
-            className="flex-1 p-1 h-14 text-center border-[1px] border-gray-300 rounded"
+            className="flex-1 p-1 h-14 text-center border-[1px] border-gray-300 rounded w-full"
           />
         )}
       </div>
-      {(detail.form_type === "object" || detail.form_type === "select") &&
+      {(detail.type === "object" || detail.type === "select") &&
         detail.options.map((option, index) => (
           <Option
             option={option}
