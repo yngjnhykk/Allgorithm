@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import Input from "./Input";
 
 function Define({
+  name,
+  updateName,
+
   inputs,
   addInput,
   removeInput,
@@ -15,23 +18,27 @@ function Define({
 }) {
   return (
     <div className="bg-white p-6 rounded-lg space-y-6 border-solid border-2 border-gray-300">
-      <div className="text-xl font-semibold">Function Details</div>
+      <div className="text-2xl font-semibold">알고리즘 설정</div>
       <div className="space-y-4">
         {/* Name */}
         <div className="flex items-center">
-          <div className="w-1/3 text-lg">Name</div>
+          <div className="w-1/3 text-xl">알고리즘 이름</div>
         </div>
         <div>
           <input
             type="text"
             className="w-2/3 p-2 border rounded"
-            placeholder="Function Name"
+            placeholder="알고리즘 이름"
+            value={name}
+            onChange={(e) => {
+              updateName(e.target.value);
+            }}
           />
         </div>
 
         {/* parameter */}
         <div className="flex flex-col w-full" style={{ marginTop: 100 }}>
-          <div className="text-lg mb-4">Parameter</div>
+          <div className="text-xl mb-4">입력 값</div>
           {inputs.map((input, index) => (
             <Input
               input={input}

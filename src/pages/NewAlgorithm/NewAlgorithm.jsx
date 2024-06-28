@@ -3,14 +3,15 @@ import Preview from "./Preview";
 import Define from "./Define/Define";
 
 function NewAlgorithm() {
+  const [name, setName] = useState("");
+
   const [inputs, setInputs] = useState([
     {
       name: "Ship Type",
       detail: {
         title: "Ship Information",
         parameter_name: "ship_type",
-        type: "string",
-        form_type: "select",
+        type: "select",
         options: [
           "Bulk Carrier",
           "Gas Carrier",
@@ -27,7 +28,116 @@ function NewAlgorithm() {
         example: "Bulk Carrier",
       },
     },
+    {
+      name: "DWT at Summer Load Draught",
+      detail: {
+        title: "Ship Information",
+        parameter_name: "dwt",
+        type: "input",
+        example: 0,
+      },
+    },
+    {
+      name: "Gross Tonnage",
+      detail: {
+        title: "Ship Information",
+        parameter_name: "gt",
+        type: "input",
+        example: 0,
+      },
+    },
+    {
+      name: "Fuels",
+      detail: {
+        title: "Fuel Information",
+        parameter_name: "fuels",
+        type: "object",
+        options: [
+          {
+            name: "Diesel/Gas Oil",
+            parameter_name: "diesel",
+            value: 0,
+          },
+          {
+            name: "Heavy Fuel Oil",
+            parameter_name: "hfo",
+            value: 0,
+          },
+          {
+            name: "Light Fuel Oil",
+            parameter_name: "lfo",
+            value: 0,
+          },
+          {
+            name: "LPG Propane",
+            parameter_name: "lpg-p",
+            value: 0,
+          },
+          {
+            name: "LPG Butane",
+            parameter_name: "lpg-b",
+            value: 0,
+          },
+          {
+            name: "Liquefied Natural Gas",
+            parameter_name: "lng",
+            value: 0,
+          },
+          {
+            name: "Methanol",
+            parameter_name: "methanol",
+            value: 0,
+          },
+          {
+            name: "Ethanol",
+            parameter_name: "ethanol",
+            value: 0,
+          },
+        ],
+        example: "",
+      },
+    },
+    {
+      name: "Total Distance Traveled",
+      detail: {
+        title: "Voyage Information",
+        parameter_name: "distance",
+        type: "input",
+        example: 0,
+      },
+    },
+    {
+      name: "Reduction Factor",
+      detail: {
+        title: "Etc",
+        parameter_name: "reduction_factor",
+        type: "select",
+        options: [
+          "2019",
+          "2020",
+          "2021",
+          "2022",
+          "2023",
+          "2024",
+          "2025",
+          "2026",
+        ],
+        example: "",
+      },
+    },
   ]);
+
+  // ---------------------------------------------------------------------------------
+  //
+  //
+  //   이름
+  //
+  //
+  // ---------------------------------------------------------------------------------
+
+  const updateName = (newValue) => {
+    setName(newValue);
+  };
 
   // ---------------------------------------------------------------------------------
   //
@@ -57,12 +167,32 @@ function NewAlgorithm() {
     setInputs(newinputs);
   };
 
-  const updateInputTitle = (inputIndex, newTitle) => {
-    const newinputs = inputs.map((section, index) => {
-      if (index === inputIndex) {
-        return { ...inputs, title: newTitle };
+  const updateInputTitle = (sectionIndex, newTitle) => {
+    const newInputs = inputs.map((input, index) => {
+      if (index === sectionIndex) {
+        return {
+          ...input,
+          name: newTitle,
+        };
       }
-      return section;
+      return input;
+    });
+
+    setInputs(newInputs);
+  };
+
+  const updateDetail = (inputIndex, key, value) => {
+    const newinputs = inputs.map((input, idx) => {
+      if (idx === inputIndex) {
+        return {
+          ...input,
+          detail: {
+            ...input.detail,
+            [key]: value,
+          },
+        };
+      }
+      return input;
     });
 
     setInputs(newinputs);
@@ -76,18 +206,19 @@ function NewAlgorithm() {
   //
   // ---------------------------------------------------------------------------------
 
-  const addOption = (sectionIndex, newOption) => {
-    const newinputs = inputs.map((section, idx) => {
-      if (idx === sectionIndex) {
+  const addOption = (inputIndex) => {
+    console.log("addOption");
+    const newinputs = inputs.map((input, idx) => {
+      if (idx === inputIndex) {
         return {
-          ...section,
+          ...input,
           detail: {
-            ...section.detail,
-            options: [...section.detail.options, newOption],
+            ...input.detail,
+            options: [...input.detail.options, ""],
           },
         };
       }
-      return section;
+      return input;
     });
 
     setInputs(newinputs);
@@ -112,25 +243,6 @@ function NewAlgorithm() {
 
     setInputs(newinputs);
   };
-
-  const updateDetail = (inputIndex, key, value) => {
-    const newinputs = inputs.map((input, idx) => {
-      if (idx === inputIndex) {
-        return {
-          ...input,
-          detail: {
-            ...input.detail,
-            [key]: value,
-          },
-        };
-      }
-      return input;
-    });
-
-    setInputs(newinputs);
-  };
-
-  // 옵션
 
   const updateOption = (sectionIndex, optionIndex, newValue) => {
     const newinputs = inputs.map((section, idx) => {
@@ -166,10 +278,12 @@ function NewAlgorithm() {
       </div>
       <div className="grid grid-cols-5  mt-6 gap-4">
         <div className="col-span-2">
-          <Preview inputs={inputs} />
+          <Preview name={name} inputs={inputs} />
         </div>
         <div className="col-span-3">
           <Define
+            name={name}
+            updateName={updateName}
             inputs={inputs}
             addInput={addInput}
             removeInput={removeInput}
