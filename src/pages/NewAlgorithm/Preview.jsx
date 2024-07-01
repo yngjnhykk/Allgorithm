@@ -6,11 +6,9 @@ function Preview({ name, inputs, content }) {
     <div className="bg-white p-6 border-2 rounded-lg space-y-6 border-gray-300 border-solid">
       <div className="text-2xl font-semibold">알고리즘 Preview</div>
       <div>
-        <div className="text-sm">
+        <div className="text-sm bg-gray-100 p-4 rounded overflow-x-auto">
           function {name} ({parametersDisplay}) {"{"}
-          <pre className="bg-gray-100 p-2 rounded overflow-x-auto">
-            {content}
-          </pre>
+          <pre>{content}</pre>
           {"}"}
         </div>
       </div>

@@ -5,7 +5,9 @@ import { postAlgorithm } from "../../api/newAlgorithm";
 
 function NewAlgorithm() {
   const [name, setName] = useState("CII");
-
+  const [info, setInfo] = useState(
+    "기업의 탄소 배출 강도를 평가하고 비교하는 데 사용되는 방법론"
+  );
   const [inputs, setInputs] = useState([
     {
       name: "Ship Type",
@@ -128,6 +130,26 @@ function NewAlgorithm() {
     },
   ]);
 
+  const [outputs, setOutputs] = useState([
+    {
+      name: "Required CII",
+      parameter_name: "required_cii",
+      type: "text",
+      options: [""],
+    },
+    {
+      name: "Attained CII",
+      parameter_name: "attained_cii",
+      type: "text",
+      options: [""],
+    },
+    {
+      name: "Grade",
+      parameter_name: "grade",
+      type: "text",
+    },
+  ]);
+
   const [content, setContent] = useState(``);
 
   //   console.log({
@@ -147,6 +169,10 @@ function NewAlgorithm() {
 
   const updateName = (newValue) => {
     setName(newValue);
+  };
+
+  const updateInfo = (newValue) => {
+    setInfo(newValue);
   };
 
   // ---------------------------------------------------------------------------------
@@ -211,7 +237,7 @@ function NewAlgorithm() {
   // ---------------------------------------------------------------------------------
   //
   //
-  //   옵션
+  //  입력값 옵션
   //
   //
   // ---------------------------------------------------------------------------------
@@ -280,6 +306,102 @@ function NewAlgorithm() {
     setInputs(newinputs);
   };
 
+  // ---------------------------------------------------------------------------------
+  //
+  //
+  //   출력값
+  //
+  //
+  // ---------------------------------------------------------------------------------
+
+  const addOutput = () => {
+    setOutputs([
+      ...outputs,
+      {
+        name: "",
+        parameter_name: "",
+        type: "Text",
+      },
+    ]);
+  };
+
+  const removeOutput = (sectionIndex) => {
+    const newinputs = outputs.filter((_, idx) => idx !== sectionIndex);
+    setOutputs(newinputs);
+  };
+
+  const updateOutput = (index, key, value) => {
+    console.log(index, key, value);
+    const newOutputs = [...outputs];
+    newOutputs[index][key] = value;
+    setOutputs(newOutputs);
+  };
+
+  // ---------------------------------------------------------------------------------
+  //
+  //
+  //  출력값 옵션
+  //
+  //
+  // ---------------------------------------------------------------------------------
+
+  const addOutputOption = (outputIndex) => {
+    console.log("addOption");
+    const newOutputs = outputs.map((output, idx) => {
+      if (idx === outputIndex) {
+        return {
+          ...output,
+          options: [...output.options, ""],
+        };
+      }
+
+      return output;
+    });
+
+    setInputs(newOutputs);
+  };
+
+  // 옵션 제거
+  const removeOutputOption = (outputIndex, optionIndex) => {
+    const newOutputs = outputs.map((output, idx) => {
+      if (idx === outputIndex) {
+        const newOptions = output.options.filter(
+          (_, optIdx) => optIdx !== optionIndex
+        );
+        return {
+          ...output,
+          options: newOptions,
+        };
+      }
+      return output;
+    });
+
+    setOutputs(newOutputs);
+  };
+
+  const updateOutputOption = (outputIndex, optionIndex, newValue) => {
+    const newOutputs = outputs.map((output, idx) => {
+      if (idx === outputIndex) {
+        const newOptions = output.options.map((option, optIdx) => {
+          if (optIdx === optionIndex) {
+            return newValue; // 옵션 값 업데이트
+          }
+          return option;
+        });
+
+        return {
+          ...output,
+          options: newOptions,
+        };
+      }
+      return output;
+    });
+
+    setOutputs(newOutputs);
+  };
+
+  // content 저장 ----------------------------------------
+
   const updateContent = (newContent) => {
     setContent(newContent);
   };
@@ -311,6 +433,8 @@ function NewAlgorithm() {
           <Define
             name={name}
             updateName={updateName}
+            info={info}
+            updateInfo={updateInfo}
             inputs={inputs}
             addInput={addInput}
             removeInput={removeInput}
@@ -322,6 +446,13 @@ function NewAlgorithm() {
             content={content}
             updateContent={updateContent}
             onClickRegisterBtn={onClickRegisterBtn}
+            outputs={outputs}
+            addOutput={addOutput}
+            removeOutput={removeOutput}
+            updateOutput={updateOutput}
+            addOutputOption={addOutputOption}
+            removeOutputOption={removeOutputOption}
+            updateOutputOption={updateOutputOption}
           />
         </div>
       </div>
