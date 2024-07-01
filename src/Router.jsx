@@ -5,7 +5,7 @@ import Register from "./pages/ListPage/Register";
 import Simulator from "./pages/MainPage/Simulator";
 import Dashboard from "./pages/Dashboard";
 import MainPage from "./pages/MainPage/MainPage";
-// import NewAlgorithm from "./pages/NewAlgorithm/NewAlgorithm";
+import NewAlgorithm from "./pages/NewAlgorithm/NewAlgorithm";
 
 function Router() {
   return (
@@ -14,7 +14,7 @@ function Router() {
       <Route path="/register" element={<Register />}></Route>
       <Route path="/simulator" element={<Simulator />}></Route>
       <Route path="/dashboard/:id" element={<Dashboard />}></Route>
-      {/*<Route path="/newAlgorithm" element={<NewAlgorithm />}></Route>*/}
+      <Route path="/newAlgorithm" element={<NewAlgorithm />}></Route>
     </Routes>
   );
 }
