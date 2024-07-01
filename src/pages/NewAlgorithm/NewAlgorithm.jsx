@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import Preview from "./Preview";
 import Define from "./Define/Define";
+import { postAlgorithm } from "../../api/newAlgorithm";
 
 function NewAlgorithm() {
-  const [name, setName] = useState("");
-
+  const [name, setName] = useState("CII");
+  const [info, setInfo] = useState(
+    "기업의 탄소 배출 강도를 평가하고 비교하는 데 사용되는 방법론"
+  );
   const [inputs, setInputs] = useState([
     {
       name: "Ship Type",
@@ -34,7 +37,7 @@ function NewAlgorithm() {
         title: "Ship Information",
         parameter_name: "dwt",
         type: "input",
-        example: 0,
+        example: 69999,
       },
     },
     {
@@ -43,7 +46,7 @@ function NewAlgorithm() {
         title: "Ship Information",
         parameter_name: "gt",
         type: "input",
-        example: 0,
+        example: 51164,
       },
     },
     {
@@ -56,7 +59,7 @@ function NewAlgorithm() {
           {
             name: "Diesel/Gas Oil",
             parameter_name: "diesel",
-            value: 0,
+            value: 26,
           },
           {
             name: "Heavy Fuel Oil",
@@ -66,7 +69,7 @@ function NewAlgorithm() {
           {
             name: "Light Fuel Oil",
             parameter_name: "lfo",
-            value: 0,
+            value: 5693,
           },
           {
             name: "LPG Propane",
@@ -103,7 +106,7 @@ function NewAlgorithm() {
         title: "Voyage Information",
         parameter_name: "distance",
         type: "input",
-        example: 0,
+        example: 61523,
       },
     },
     {
@@ -122,10 +125,39 @@ function NewAlgorithm() {
           "2025",
           "2026",
         ],
-        example: "",
+        example: "2024",
       },
     },
   ]);
+
+  const [outputs, setOutputs] = useState([
+    {
+      name: "Required CII",
+      parameter_name: "required_cii",
+      type: "text",
+      options: [""],
+    },
+    {
+      name: "Attained CII",
+      parameter_name: "attained_cii",
+      type: "text",
+      options: [""],
+    },
+    {
+      name: "Grade",
+      parameter_name: "grade",
+      type: "text",
+    },
+  ]);
+
+  const [content, setContent] = useState(``);
+
+  //   console.log({
+  //     name,
+  //     inputs,
+  //     content,
+  //   });
+  console.log(content);
 
   // ---------------------------------------------------------------------------------
   //
@@ -137,6 +169,10 @@ function NewAlgorithm() {
 
   const updateName = (newValue) => {
     setName(newValue);
+  };
+
+  const updateInfo = (newValue) => {
+    setInfo(newValue);
   };
 
   // ---------------------------------------------------------------------------------
@@ -201,7 +237,7 @@ function NewAlgorithm() {
   // ---------------------------------------------------------------------------------
   //
   //
-  //   옵션
+  //  입력값 옵션
   //
   //
   // ---------------------------------------------------------------------------------
@@ -270,6 +306,119 @@ function NewAlgorithm() {
     setInputs(newinputs);
   };
 
+  // ---------------------------------------------------------------------------------
+  //
+  //
+  //   출력값
+  //
+  //
+  // ---------------------------------------------------------------------------------
+
+  const addOutput = () => {
+    setOutputs([
+      ...outputs,
+      {
+        name: "",
+        parameter_name: "",
+        type: "Text",
+      },
+    ]);
+  };
+
+  const removeOutput = (sectionIndex) => {
+    const newinputs = outputs.filter((_, idx) => idx !== sectionIndex);
+    setOutputs(newinputs);
+  };
+
+  const updateOutput = (index, key, value) => {
+    console.log(index, key, value);
+    const newOutputs = [...outputs];
+    newOutputs[index][key] = value;
+    setOutputs(newOutputs);
+  };
+
+  // ---------------------------------------------------------------------------------
+  //
+  //
+  //  출력값 옵션
+  //
+  //
+  // ---------------------------------------------------------------------------------
+
+  const addOutputOption = (outputIndex) => {
+    console.log("addOption");
+    const newOutputs = outputs.map((output, idx) => {
+      if (idx === outputIndex) {
+        return {
+          ...output,
+          options: [...output.options, ""],
+        };
+      }
+
+      return output;
+    });
+
+    setInputs(newOutputs);
+  };
+
+  // 옵션 제거
+  const removeOutputOption = (outputIndex, optionIndex) => {
+    const newOutputs = outputs.map((output, idx) => {
+      if (idx === outputIndex) {
+        const newOptions = output.options.filter(
+          (_, optIdx) => optIdx !== optionIndex
+        );
+        return {
+          ...output,
+          options: newOptions,
+        };
+      }
+      return output;
+    });
+
+    setOutputs(newOutputs);
+  };
+
+  const updateOutputOption = (outputIndex, optionIndex, newValue) => {
+    const newOutputs = outputs.map((output, idx) => {
+      if (idx === outputIndex) {
+        const newOptions = output.options.map((option, optIdx) => {
+          if (optIdx === optionIndex) {
+            return newValue; // 옵션 값 업데이트
+          }
+          return option;
+        });
+
+        return {
+          ...output,
+          options: newOptions,
+        };
+      }
+      return output;
+    });
+
+    setOutputs(newOutputs);
+  };
+
+  // content 저장 ----------------------------------------
+
+  const updateContent = (newContent) => {
+    setContent(newContent);
+  };
+
+  // newAlgorithm 저장 ----------------------------------------
+
+  const onClickRegisterBtn = () => {
+    const newAlgorithm = {
+      name,
+      parameter: ["data"],
+      content,
+    };
+    postAlgorithm(newAlgorithm);
+  };
+
+  // ----------------------------------------------------------
+
   return (
     <div className="p-12 w-full ">
       <div className="mt-10 text-3xl font-medium">
@@ -278,12 +427,14 @@ function NewAlgorithm() {
       </div>
       <div className="grid grid-cols-5  mt-6 gap-4">
         <div className="col-span-2">
-          <Preview name={name} inputs={inputs} />
+          <Preview name={name} inputs={inputs} content={content} />
         </div>
         <div className="col-span-3">
           <Define
             name={name}
             updateName={updateName}
+            info={info}
+            updateInfo={updateInfo}
             inputs={inputs}
             addInput={addInput}
             removeInput={removeInput}
@@ -292,6 +443,16 @@ function NewAlgorithm() {
             removeOption={removeOption}
             updateDetail={updateDetail}
             updateOption={updateOption}
+            content={content}
+            updateContent={updateContent}
+            onClickRegisterBtn={onClickRegisterBtn}
+            outputs={outputs}
+            addOutput={addOutput}
+            removeOutput={removeOutput}
+            updateOutput={updateOutput}
+            addOutputOption={addOutputOption}
+            removeOutputOption={removeOutputOption}
+            updateOutputOption={updateOutputOption}
           />
         </div>
       </div>
