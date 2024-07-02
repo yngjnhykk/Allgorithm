@@ -24,10 +24,10 @@ function Input({
 
   return (
     <div
+      key={`${inputIndex}-${1}`}
       className={`${isVisible ? "mt-8" : ""} ${
         isVisible ? "mb-4" : ""
-      }   p-2 border rounded`}
-      key={inputIndex}
+      } p-2  rounded`}
     >
       {/* 입력값 이름 */}
       <div className="flex flex-row justify-between mb-2">
@@ -37,7 +37,7 @@ function Input({
           value={input.name}
           name={input.name}
           onChange={(e) => updateInputTitle(inputIndex, e.target.value)}
-          className="mb-2 p-1 text-xl border-none rounded"
+          className="mb-2 p-1 text-xl border-none rounded w-2/3"
         />
         <div className="flex flex-row gap-4">
           <button

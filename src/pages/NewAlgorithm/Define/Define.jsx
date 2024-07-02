@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Input from "./Input/Input";
-import Output from "./Ouput/Output";
+import Output from "./Ouput/Ouput";
 
 function Define({
   name,
@@ -33,7 +33,6 @@ function Define({
 
   onClickRegisterBtn,
 }) {
-  console.log(outputs);
   return (
     <div className="bg-white p-6 rounded-lg space-y-6 border-solid border-2 border-gray-300">
       <div className="text-2xl font-semibold">알고리즘 설정</div>
@@ -71,17 +70,19 @@ function Define({
         <div className="flex flex-col w-full">
           <div className="text-[22px] mb-8">입력 값</div>
           {inputs.map((input, index) => (
-            <Input
-              input={input}
-              inputIndex={index}
-              detail={input.detail}
-              removeInput={removeInput}
-              updateInputTitle={updateInputTitle}
-              removeOption={removeOption}
-              addOption={addOption}
-              updateDetail={updateDetail}
-              updateOption={updateOption}
-            />
+            <div key={index}>
+              <Input
+                input={input}
+                inputIndex={index}
+                detail={input.detail}
+                removeInput={removeInput}
+                updateInputTitle={updateInputTitle}
+                removeOption={removeOption}
+                addOption={addOption}
+                updateDetail={updateDetail}
+                updateOption={updateOption}
+              />
+            </div>
           ))}
 
           {/* input 추가 버튼 */}
@@ -109,6 +110,7 @@ function Define({
               addOutputOption={addOutputOption}
               removeOutputOption={removeOutputOption}
               updateOutputOption={updateOutputOption}
+              key={index}
             />
           ))}
 

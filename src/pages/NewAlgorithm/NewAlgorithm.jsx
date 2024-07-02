@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Preview from "./Preview";
 import Define from "./Define/Define";
 import { postAlgorithm } from "../../api/newAlgorithm";
+import { useMutation } from "react-query";
+import { useLocation, useNavigate } from "react-router-dom/dist";
 
 function NewAlgorithm() {
   const [name, setName] = useState("CII");
@@ -132,14 +134,14 @@ function NewAlgorithm() {
 
   const [outputs, setOutputs] = useState([
     {
-      name: "Required CII",
-      parameter_name: "required_cii",
+      name: "Required_CII",
+      parameter_name: "requiredCII",
       type: "text",
       options: [""],
     },
     {
-      name: "Attained CII",
-      parameter_name: "attained_cii",
+      name: "Attained_CII",
+      parameter_name: "attainedCII",
       type: "text",
       options: [""],
     },
@@ -152,13 +154,12 @@ function NewAlgorithm() {
 
   const [content, setContent] = useState(``);
 
-  //   console.log({
-  //     name,
-  //     inputs,
-  //     content,
-  //   });
-  console.log(content);
+  const navigate = useNavigate();
 
+  const location = useLocation();
+  const data = location.state?.data; // 전달받은 데이터
+
+  console.log(data);
   // ---------------------------------------------------------------------------------
   //
   //
@@ -408,13 +409,58 @@ function NewAlgorithm() {
 
   // newAlgorithm 저장 ----------------------------------------
 
+  const outputsDisplay = outputs
+    .map((output) => `  ${output.name} : ${output.parameter_name},\n`)
+    .join("");
+
+  const functionString = `
+    ${content}
+    return {
+  ${outputsDisplay}
+    };
+  `;
+
+  const checkResult = useMutation(
+    (newAlgorithm) => postAlgorithm(newAlgorithm),
+    {
+      onSuccess: (data) => {
+        console.log(`data: ${data}`);
+        const isConfirmed = window.confirm(
+          `입력하신 예제 값에 대한 결과입니다. 맞으시다면, '확인' 버튼을 눌러 다음 단계(알고리즘 확인)로 이동하세요.
+  
+  Required_CII: ${data.Required_CII}
+  Attained_CII: ${data.Attained_CII}
+  Grade: ${data.Grade}`
+        );
+        if (isConfirmed) {
+          // 상태(state)를 사용하여 데이터 전달
+          navigate("/algorithmTest", {
+            state: {
+              data: {
+                name,
+                info,
+                inputs,
+                outputs,
+                content,
+              },
+            },
+          });
+        }
+      },
+      onError: (error) => {
+        console.error("error", error);
+      },
+    }
+  );
+
   const onClickRegisterBtn = () => {
     const newAlgorithm = {
       name,
       parameter: ["data"],
-      content,
+      content: functionString,
     };
-    postAlgorithm(newAlgorithm);
+    // console.log(functionString);
+    checkResult.mutate(newAlgorithm);
   };
 
   // ----------------------------------------------------------
@@ -427,7 +473,12 @@ function NewAlgorithm() {
       </div>
       <div className="grid grid-cols-5  mt-6 gap-4">
         <div className="col-span-2">
-          <Preview name={name} inputs={inputs} content={content} />
+          <Preview
+            name={name}
+            inputs={inputs}
+            content={content}
+            outputs={outputs}
+          />
         </div>
         <div className="col-span-3">
           <Define
