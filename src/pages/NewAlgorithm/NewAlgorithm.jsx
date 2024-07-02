@@ -149,6 +149,7 @@ function NewAlgorithm() {
       name: "Grade",
       parameter_name: "grade",
       type: "text",
+      options: [""],
     },
   ]);
 
@@ -156,14 +157,10 @@ function NewAlgorithm() {
 
   const navigate = useNavigate();
 
-  const location = useLocation();
-  const data = location.state?.data; // 전달받은 데이터
-
-  console.log(data);
   // ---------------------------------------------------------------------------------
   //
   //
-  //   이름
+  //   이름, 소개
   //
   //
   // ---------------------------------------------------------------------------------
@@ -322,6 +319,7 @@ function NewAlgorithm() {
         name: "",
         parameter_name: "",
         type: "Text",
+        options: [""],
       },
     ]);
   };

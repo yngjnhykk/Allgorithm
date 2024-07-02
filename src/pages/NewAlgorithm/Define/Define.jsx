@@ -68,7 +68,7 @@ function Define({
 
         {/* 입력 값 */}
         <div className="flex flex-col w-full">
-          <div className="text-[22px] mb-8">입력 값</div>
+          <div className="text-xl mb-8">입력 값</div>
           {inputs.map((input, index) => (
             <div key={index}>
               <Input
@@ -129,15 +129,17 @@ function Define({
 
         {/* Content */}
 
-        <div className="text-lg">Content</div>
-        <textarea
-          className="w-full h-48 p-2 border rounded"
-          placeholder="함수 내용에 들어갈 코드를 입력해주세요"
-          value={content}
-          onChange={(e) => {
-            updateContent(e.target.value);
-          }}
-        ></textarea>
+        <div>
+          <div className="text-[22px]">알고리즘 내용</div>
+          <textarea
+            className="w-full h-48 p-2 border rounded mt-8"
+            placeholder="함수 내용에 들어갈 코드를 입력해주세요"
+            value={content}
+            onChange={(e) => {
+              updateContent(e.target.value);
+            }}
+          />
+        </div>
       </div>
       <div className="flex items-center justify-center">
         <button

@@ -24,7 +24,6 @@ function Input({
 
   return (
     <div
-      key={`${inputIndex}-${1}`}
       className={`${isVisible ? "mt-8" : ""} ${
         isVisible ? "mb-4" : ""
       } p-2  rounded`}
@@ -37,7 +36,7 @@ function Input({
           value={input.name}
           name={input.name}
           onChange={(e) => updateInputTitle(inputIndex, e.target.value)}
-          className="mb-2 p-1 text-xl border-none rounded w-2/3"
+          className="mb-2 p-1 text-lg border-none rounded w-2/3"
         />
         <div className="flex flex-row gap-4">
           <button
@@ -110,6 +109,7 @@ function Input({
         isVisible &&
         detail.options.map((option, index) => (
           <InputOption
+            key={index}
             option={option}
             options={detail.options}
             detail={detail}
