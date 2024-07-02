@@ -53,7 +53,7 @@ function Define({
 
         {/* 소개 */}
         <div className="flex items-center mt-10 ">
-          <div className="w-1/3 text-xl">소개</div>
+          <div className="w-1/3 text-xl">알고리즘 소개</div>
           <input
             type="text"
             className="w-2/3 p-3 border rounded "

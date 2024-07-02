@@ -4,156 +4,21 @@ import Define from "./Define/Define";
 import { postAlgorithm } from "../../api/newAlgorithm";
 import { useMutation } from "react-query";
 import { useLocation, useNavigate } from "react-router-dom/dist";
+import { ciiTestData } from "../../api/test";
 
 function NewAlgorithm() {
-  const [name, setName] = useState("CII");
-  const [info, setInfo] = useState(
-    "기업의 탄소 배출 강도를 평가하고 비교하는 데 사용되는 방법론"
-  );
-  const [inputs, setInputs] = useState([
-    {
-      name: "Ship Type",
-      detail: {
-        title: "Ship Information",
-        parameter_name: "ship_type",
-        type: "select",
-        options: [
-          "Bulk Carrier",
-          "Gas Carrier",
-          "Tanker",
-          "Container Ship",
-          "Refrigerated Cargo Carrier",
-          "Combination Carrier",
-          "LNG Carrier",
-          "Ro-Ro Cargo Ship (Vehicle Carrier)",
-          "Ro-Ro Cargo Ship",
-          "Ro-Ro Passenger Ship",
-          "Cruise Passenger Ship",
-        ],
-        example: "Bulk Carrier",
-      },
-    },
-    {
-      name: "DWT at Summer Load Draught",
-      detail: {
-        title: "Ship Information",
-        parameter_name: "dwt",
-        type: "input",
-        example: 69999,
-      },
-    },
-    {
-      name: "Gross Tonnage",
-      detail: {
-        title: "Ship Information",
-        parameter_name: "gt",
-        type: "input",
-        example: 51164,
-      },
-    },
-    {
-      name: "Fuels",
-      detail: {
-        title: "Fuel Information",
-        parameter_name: "fuels",
-        type: "object",
-        options: [
-          {
-            name: "Diesel/Gas Oil",
-            parameter_name: "diesel",
-            value: 26,
-          },
-          {
-            name: "Heavy Fuel Oil",
-            parameter_name: "hfo",
-            value: 0,
-          },
-          {
-            name: "Light Fuel Oil",
-            parameter_name: "lfo",
-            value: 5693,
-          },
-          {
-            name: "LPG Propane",
-            parameter_name: "lpg-p",
-            value: 0,
-          },
-          {
-            name: "LPG Butane",
-            parameter_name: "lpg-b",
-            value: 0,
-          },
-          {
-            name: "Liquefied Natural Gas",
-            parameter_name: "lng",
-            value: 0,
-          },
-          {
-            name: "Methanol",
-            parameter_name: "methanol",
-            value: 0,
-          },
-          {
-            name: "Ethanol",
-            parameter_name: "ethanol",
-            value: 0,
-          },
-        ],
-        example: "",
-      },
-    },
-    {
-      name: "Total Distance Traveled",
-      detail: {
-        title: "Voyage Information",
-        parameter_name: "distance",
-        type: "input",
-        example: 61523,
-      },
-    },
-    {
-      name: "Reduction Factor",
-      detail: {
-        title: "Etc",
-        parameter_name: "reduction_factor",
-        type: "select",
-        options: [
-          "2019",
-          "2020",
-          "2021",
-          "2022",
-          "2023",
-          "2024",
-          "2025",
-          "2026",
-        ],
-        example: "2024",
-      },
-    },
-  ]);
+  const location = useLocation();
+  const reUse = location.state?.data; // 전달받은 데이터
+  // const reUse = ciiTestData;
+  console.log(reUse);
 
-  const [outputs, setOutputs] = useState([
-    {
-      name: "Required_CII",
-      parameter_name: "requiredCII",
-      type: "text",
-      options: [""],
-    },
-    {
-      name: "Attained_CII",
-      parameter_name: "attainedCII",
-      type: "text",
-      options: [""],
-    },
-    {
-      name: "Grade",
-      parameter_name: "grade",
-      type: "text",
-      options: [""],
-    },
-  ]);
+  const [name, setName] = useState(reUse?.name || "");
+  const [info, setInfo] = useState(reUse?.info || "");
+  const [inputs, setInputs] = useState(reUse?.inputs || []);
 
-  const [content, setContent] = useState(``);
+  const [outputs, setOutputs] = useState(reUse?.outputs || []);
+
+  const [content, setContent] = useState(reUse?.content || ``);
 
   const navigate = useNavigate();
 
