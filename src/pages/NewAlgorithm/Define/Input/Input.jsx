@@ -23,12 +23,7 @@ function Input({
   };
 
   return (
-    <div
-      className={`${isVisible ? "mt-8" : ""} ${
-        isVisible ? "mb-4" : ""
-      }   p-2 border rounded`}
-      key={inputIndex}
-    >
+    <div className={`${isVisible ? "mt-8" : ""} ${isVisible ? "mb-4" : ""}   p-2 border rounded`} key={inputIndex}>
       {/* 입력값 이름 */}
       <div className="flex flex-row justify-between mb-2">
         <input
