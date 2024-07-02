@@ -10,18 +10,26 @@ const convertEscapedStringToCode = (escapedString) => {
 };
 
 export const postAlgorithm = async (newAlgorithm) => {
-  const wrappedContent = `\`${newAlgorithm.content}\``;
-  console.log(wrappedContent);
+  try {
+    const wrappedContent = `\`${newAlgorithm.content}\``;
+    console.log("Wrapped Content:", wrappedContent);
 
-  const data = {
-    ...newAlgorithm,
-    content: convertEscapedStringToCode(wrappedContent),
-  };
+    const data = {
+      ...newAlgorithm,
+      content: convertEscapedStringToCode(wrappedContent),
+    };
 
-  const response = await axios.post("http://127.0.0.1:1880/allgorithm", {
-    data,
-  });
-  console.log(response.data);
-  alert(`RequiredCII: ${response.data.requiredCII}`);
-  return response;
+    console.log("Data to send:", data);
+
+    const response = await axios.post("http://118.129.145.98:1880/allgo_test", {
+      data,
+    });
+    console.log(response.data);
+    return response.data;
+  } catch {
+    err;
+  }
+  {
+    console.error(err);
+  }
 };
