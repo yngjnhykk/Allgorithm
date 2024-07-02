@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import data from '../temp.json';
-import {useLocation} from "react-router-dom";
-import {useNavigate} from "react-router-dom/dist";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import data from "../temp.json";
+import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom/dist";
 
 // form_type별 입력 필드 요소 생성
 function renderInput(input, key, formData, handleChange) {
@@ -143,14 +143,15 @@ function AlgorithmTest() {
 
   // 뒤로가기 버튼
   const goBack = () => {
-    navi('/newAlgorithm', {state : {data : reUse}})
-  }
+    navi("/newAlgorithm", { state: { data: reUse } });
+  };
 
   // 알고리즘 등록
   const register = () => {
     // axios.post('http://192.168.219.178:1880/allgo_run', transformedData)
-    if(confirm('정말 등록 하시겠습니까?')){
-      axios.post('http://118.129.145.98:1880/allgo_register', reUse)
+    if (confirm("정말 등록 하시겠습니까?")) {
+      axios
+        .post("http://118.129.145.98:1880/allgo_register", reUse)
         // 케이디에스
         // axios.post('http://192.168.68.51:1880/allgo_run', transformedData)
         .then((res) => {
@@ -160,9 +161,8 @@ function AlgorithmTest() {
           console.log(err);
         });
     }
-    navi('/')
+    navi("/");
   };
-
 
   // formData를 원하는 형태로 변환하는 함수
   const transformFormData = (datas) => {
@@ -269,8 +269,18 @@ function AlgorithmTest() {
 
         {/* buttons */}
         <div className="flex justify-center mt-6">
-          <button className="w-1/5 mx-6 p-2 bg-red-400 text-white font-black text-lg rounded-xl" onClick={goBack}>뒤로가기</button>
-          <button className="w-1/5 mx-6 p-2 bg-Cmain text-white font-black text-lg rounded-xl" onClick={register} >알고리즘 등록</button>
+          <button
+            className="w-1/5 mx-6 p-2 bg-red-400 text-white font-black text-lg rounded-xl"
+            onClick={goBack}
+          >
+            뒤로가기
+          </button>
+          <button
+            className="w-1/5 mx-6 p-2 bg-Cmain text-white font-black text-lg rounded-xl"
+            onClick={register}
+          >
+            알고리즘 등록
+          </button>
         </div>
       </div>
     </div>

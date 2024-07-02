@@ -4,20 +4,9 @@ function Preview({ name, inputs, content, outputs }) {
   const parameterNames = inputs.map((item) => item.detail.parameter_name);
   const parametersDisplay = parameterNames.join(", ");
 
-  const outputsDisplay = outputs
-    .map((output) => `  ${output.name} : ${output.parameter_name},\n`)
-    .join("");
-
-  const functionString = `
-      ${content}
-      return {
-    ${outputsDisplay}
-      };
-    `;
-
   return (
     <div className="bg-white p-6 border-2 rounded-lg space-y-6 border-gray-300 border-solid">
-      <div className="text-2xl font-semibold">알고리즘 Preview</div>
+      <div className="text-2xl font-semibold">알고리즘 미리보기</div>
       <div>
         <div className="text-sm bg-gray-100 p-4 rounded overflow-x-auto">
           function {name} ({parametersDisplay}) {"{"}
