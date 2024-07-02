@@ -32,7 +32,7 @@ function Output({
           value={output.name}
           name="name"
           onChange={(e) => updateOutput(outputIndex, "name", e.target.value)}
-          className="mb-2 p-1 text-xl border-none rounded "
+          className="mb-2 p-1 text-lg border-none rounded "
         />
         <div className="flex flex-row gap-4">
           <button
@@ -49,7 +49,6 @@ function Output({
           </button>
         </div>
       </div>
-
       {isVisible && (
         <div className="flex gap-2">
           {/* 소제목 */}
@@ -87,6 +86,8 @@ function Output({
         isVisible &&
         output.options.map((option, index) => (
           <OutputOption
+            key={index}
+            output={output}
             option={option}
             options={output.options}
             outputIndex={outputIndex}

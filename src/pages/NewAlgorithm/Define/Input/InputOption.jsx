@@ -10,6 +10,7 @@ function InputOption({
   updateOption,
   removeOption,
 }) {
+
   return (
     <>
       {/* 셀렉트 */}
