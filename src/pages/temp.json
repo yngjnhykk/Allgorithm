@@ -30,7 +30,7 @@
         "title": "Ship Information",
         "parameter_name": "dwt",
         "type": "text",
-        "example": 0
+        "example": 69999
       }
     },
     {
@@ -39,7 +39,7 @@
         "title": "Ship Information",
         "parameter_name": "gt",
         "type": "text",
-        "example": 0
+        "example": 51164
       }
     },
     {
@@ -52,7 +52,7 @@
           {
             "name": "Diesel/Gas Oil",
             "parameter_name": "diesel",
-            "value": 0
+            "value": 26
           },
           {
             "name": "Heavy Fuel Oil",
@@ -62,7 +62,7 @@
           {
             "name": "Light Fuel Oil",
             "parameter_name": "lfo",
-            "value": 0
+            "value": 5693
           },
           {
             "name": "LPG Propane",
@@ -99,7 +99,7 @@
         "title": "Voyage Information",
         "parameter_name": "distance",
         "type": "text",
-        "example": 0
+        "example": 61523
       }
     },
     {
@@ -118,7 +118,7 @@
           "2025",
           "2026"
         ],
-        "example": ""
+        "example": "2024"
       }
     }
   ],
