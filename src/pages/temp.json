@@ -29,7 +29,7 @@
       "detail": {
         "title": "Ship Information",
         "parameter_name": "dwt",
-        "type": "input",
+        "type": "text",
         "example": 0
       }
     },
@@ -38,7 +38,7 @@
       "detail": {
         "title": "Ship Information",
         "parameter_name": "gt",
-        "type": "input",
+        "type": "text",
         "example": 0
       }
     },
@@ -98,7 +98,7 @@
       "detail": {
         "title": "Voyage Information",
         "parameter_name": "distance",
-        "type": "input",
+        "type": "text",
         "example": 0
       }
     },
@@ -122,10 +122,22 @@
       }
     }
   ],
-  "result": [
-    {"Required cii": "required_cii" },
-    {"Attained cii": "attained_cii" },
-    {"grade" : "grade"}
+  "output": [
+    {
+      "name": "Required CII",
+      "parameter_name": "required_cii",
+      "type": "text"
+    },
+    {
+      "name": "Attained CII",
+      "parameter_name": "attained_cii",
+      "type": "text"
+    },
+    {
+      "name": "Grade",
+      "parameter_name": "grade",
+      "type": "text"
+    }
   ],
   "content": ""
 }
