@@ -1,28 +1,53 @@
-function MainSection1() {
+import {algorithmList, getAlgorithmById} from "../../api/mainPage.js";
+import {useEffect, useState} from "react";
 
-  const data1 = [
-    {title : "CII", content : "기업의 탄소 배출 강도를 평가하고 비교하는 데 사용되는 방법론"},
-    {title : "Quick Sort", content : "피벗을 기준으로 배열을 분할하고 재귀적으로 정렬하는 분할 정복 알고리즘"},
-    {title : "Bubble Sort", content : "피벗을 기준으로 배열을 분할하고 재귀적으로 정렬하는 분할 정복 알고리즘"}
-  ]
+function MainSection1({ setSelectedAlgorithm }) {
+  const [algoList, setAlgoList] = useState([]);
+
+  const getList = async () => {
+    try {
+      const list = await algorithmList();
+      const formattedList = list.map(item => {
+        return {"name": item.algorithm_name, "info": item.algorithm_info, "id" : item.algorithm_id};
+      });
+      setAlgoList(formattedList); // 상태 업데이트
+    } catch (error) {
+      console.error("Failed to fetch algorithm list:", error);
+    }
+  };
+
+  const getAlgorithm = async (id) => {
+    try {
+      const algorithmDetails = await getAlgorithmById(id); // API call to get details by ID
+      setSelectedAlgorithm(algorithmDetails);
+    } catch (error) {
+      console.error("Failed to fetch algorithm details:", error);
+    }
+  };
+
+  useEffect(() => {
+    getList(); // 컴포넌트가 마운트될 때 리스트 가져오기
+  }, []);
 
   return (
     <div className="bg-gray-100 p-4 min-h-full">
       <h2 className="text-2xl font-bold mb-8">[알고리즘 목록]</h2>
       <ul>
-        {
-          data1.map((item, idx) =>
-            <li key={idx} className="bg-white p-4 mb-6 shadow-md rounded-xl">
+        {algoList.length > 0 ? (
+          algoList.map((item, idx) => (
+            <button key={idx} className="bg-white px-4 py-6 mb-6 shadow-md rounded-xl text-start w-full" onClick={() => getAlgorithm(item.id)}>
               <div className="mb-2">
-                <h3 className="font-bold text-xl mb-4">{item.title}</h3>
-                <p>{item.content}</p>
+                <h3 className="font-bold text-xl mb-4">{item.name}</h3>
+                <p>{item.info}</p>
               </div>
-            </li>
-          )
-        }
+            </button>
+          ))
+        ) : (
+          <p>No algorithms found</p>
+        )}
       </ul>
     </div>
-  )
+  );
 }
 
 export default MainSection1;

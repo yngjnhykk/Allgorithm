@@ -1,6 +1,5 @@
 import React from "react";
 import {Routes, Route} from "react-router";
-import ListPage from "./pages/ListPage/ListPage";
 import Register from "./pages/ListPage/Register";
 import Simulator from "./pages/MainPage/Simulator";
 import Dashboard from "./pages/Dashboard";
