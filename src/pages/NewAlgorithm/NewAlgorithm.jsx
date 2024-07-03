@@ -8,8 +8,8 @@ import { ciiTestData } from "../../api/test";
 
 function NewAlgorithm() {
   const location = useLocation();
-  const reUse = location.state?.data; // 전달받은 데이터
-  // const reUse = ciiTestData;
+  // const reUse = location.state?.data; // 전달받은 데이터
+  const reUse = ciiTestData;
   console.log(reUse);
 
   const [name, setName] = useState(reUse?.name || "");
@@ -288,13 +288,13 @@ function NewAlgorithm() {
     {
       onSuccess: (data) => {
         console.log(`data: ${data}`);
-        const isConfirmed = window.confirm(
-          `입력하신 예제 값에 대한 결과입니다. 맞으시다면, '확인' 버튼을 눌러 다음 단계(알고리즘 확인)로 이동하세요.
-  
-  Required_CII: ${data.Required_CII}
-  Attained_CII: ${data.Attained_CII}
-  Grade: ${data.Grade}`
-        );
+
+        let resultMessage = `입력하신 예제 값에 대한 결과입니다. 맞으시다면, '확인' 버튼을 눌러 다음 단계(알고리즘 확인)로 이동하세요.\n\n`;
+
+        for (const [key, value] of Object.entries(data)) {
+          resultMessage += `${key}: ${value}\n`;
+        }
+        const isConfirmed = window.confirm(resultMessage);
         if (isConfirmed) {
           // 상태(state)를 사용하여 데이터 전달
           navigate("/algorithmTest", {
