@@ -89,9 +89,9 @@ function Define({
             <div className="flex-grow border-t border-gray-300" />
             <button
               onClick={addInput}
-              className="px-6 py-2 border rounded-full font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:Cmain"
+              className="px-40 py-3 border rounded-full font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:Cmain"
             >
-              + input
+              + 입력 값
             </button>
             <div className="flex-grow border-t border-gray-300" />
           </div>
@@ -118,9 +118,9 @@ function Define({
             <div className="flex-grow border-t border-gray-300" />
             <button
               onClick={addOutput}
-              className="px-6 py-2 border rounded-full font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:Cmain"
+              className="px-40 py-3 border rounded-full font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:Cmain"
             >
-              + output
+              + 출력 값
             </button>
             <div className="flex-grow border-t border-gray-300" />
           </div>
