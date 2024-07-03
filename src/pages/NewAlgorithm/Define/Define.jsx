@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import Input from "./Input/Input";
 import Output from "./Ouput/Ouput";
 
@@ -141,12 +140,14 @@ function Define({
           />
         </div>
       </div>
+
+      {/* 확인 버튼 */}
       <div className="flex items-center justify-center">
         <button
           className="bg-Cmain w-40 h-11 rounded-md text-white"
           onClick={onClickRegisterBtn}
         >
-          알고리즘 등록
+          알고리즘 확인
         </button>
       </div>
     </div>

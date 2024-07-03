@@ -35,12 +35,14 @@ function Output({
           className="mb-2 p-1 text-lg border-none rounded "
         />
         <div className="flex flex-row gap-4">
-          <button
-            className="w-10 h-10 rounded text-black border flex items-center justify-center"
-            onClick={() => toggleVisibility(output.name)}
-          >
-            {isVisible ? <IoIosArrowUp /> : <IoIosArrowDown />}
-          </button>
+          {(output.type === "object" || output.type === "select") && (
+            <button
+              className="w-10 h-10 rounded text-black border flex items-center justify-center"
+              onClick={() => toggleVisibility(output.name)}
+            >
+              {isVisible ? <IoIosArrowUp /> : <IoIosArrowDown />}
+            </button>
+          )}
           <button
             className="bg-red-500 w-10 h-10 rounded text-white "
             onClick={() => removeOutput(outputIndex)}
@@ -49,39 +51,38 @@ function Output({
           </button>
         </div>
       </div>
-      {isVisible && (
-        <div className="flex gap-2">
-          {/* 소제목 */}
-          <input
-            type="text"
-            placeholder="이름"
-            value={output.name}
-            onChange={(e) => updateOutput(outputIndex, "title", e.target.value)}
-            className="flex-1 p-1 h-14 text-center border-[1px] border-gray-300 rounded w-full"
-          />
-          {/* 변수명 */}
-          <input
-            type="text"
-            placeholder="변수명"
-            value={output.parameter_name}
-            onChange={(e) =>
-              updateOutput(outputIndex, "parameter_name", e.target.value)
-            }
-            className="flex-1 p-1 h-14 text-center border-[1px] border-gray-300 rounded w-full"
-          />
-          {/* 타입 */}
-          <select
-            value={output.type}
-            onChange={(e) => updateOutput(outputIndex, "type", e.target.value)}
-            className="flex-1 p-1 h-14 text-center border-[1px] border-gray-300 rounded w-full"
-          >
-            <option value="text">Text</option>
-            <option value="number">Number</option>
-            <option value="object">Object</option>
-            <option value="select">Select</option>
-          </select>
-        </div>
-      )}
+
+      <div className="flex gap-2">
+        {/* 소제목 */}
+        <input
+          type="text"
+          placeholder="이름"
+          value={output.name}
+          onChange={(e) => updateOutput(outputIndex, "title", e.target.value)}
+          className="flex-1 p-1 h-14 text-center border-[1px] border-gray-300 rounded w-full"
+        />
+        {/* 변수명 */}
+        <input
+          type="text"
+          placeholder="변수명"
+          value={output.parameter_name}
+          onChange={(e) =>
+            updateOutput(outputIndex, "parameter_name", e.target.value)
+          }
+          className="flex-1 p-1 h-14 text-center border-[1px] border-gray-300 rounded w-full"
+        />
+        {/* 타입 */}
+        <select
+          value={output.type}
+          onChange={(e) => updateOutput(outputIndex, "type", e.target.value)}
+          className="flex-1 p-1 h-14 text-center border-[1px] border-gray-300 rounded w-full"
+        >
+          <option value="text">Text</option>
+          <option value="number">Number</option>
+          <option value="object">Object</option>
+          <option value="select">Select</option>
+        </select>
+      </div>
       {(output.type === "object" || output.type === "select") &&
         isVisible &&
         output.options.map((option, index) => (

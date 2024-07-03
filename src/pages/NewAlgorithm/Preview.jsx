@@ -1,6 +1,7 @@
 import React from "react";
 
 function Preview({ name, inputs, content, outputs }) {
+  // inputs parmeter_name 나열
   const parameterNames = inputs.map((item) => item.detail.parameter_name);
   const parametersDisplay = parameterNames.join(", ");
 

@@ -6,7 +6,6 @@ const convertEscapedStringToCode = (escapedString) => {
     .replace(/\\n/g, "\n")
     .replace(/\\"/g, '"')
     .replace(/\\t/g, "\t");
-  // .replace(/`/g, "\\`"); // 백틱 이스케이프 추가
 };
 
 export const postAlgorithm = async (newAlgorithm) => {
