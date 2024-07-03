@@ -12,14 +12,11 @@ const convertEscapedStringToCode = (escapedString) => {
 export const postAlgorithm = async (newAlgorithm) => {
   try {
     const wrappedContent = `\`${newAlgorithm.content}\``;
-    console.log("Wrapped Content:", wrappedContent);
 
     const data = {
       ...newAlgorithm,
       content: convertEscapedStringToCode(wrappedContent),
     };
-
-    console.log("Data to send:", data);
 
     const response = await axios.post("http://118.129.145.98:1880/allgo_test", {
       data,
