@@ -283,6 +283,34 @@ function NewAlgorithm() {
     };
   `;
 
+  // 예제 값으로 예제 객체 데이터 생성 ------------------------------------------------
+
+  function createDataObject(inputs) {
+    const data = {};
+
+    inputs.forEach((input) => {
+      const parameterName = input.detail.parameter_name;
+      const exampleValue = input.detail.example;
+
+      if (
+        input.detail.type === "object" &&
+        Array.isArray(input.detail.options)
+      ) {
+        const objectData = {};
+        input.detail.options.forEach((option) => {
+          objectData[option.parameter_name] = option.value;
+        });
+        data[parameterName] = objectData;
+      } else if (parameterName && exampleValue !== undefined) {
+        data[parameterName] = exampleValue;
+      }
+    });
+
+    return data;
+  }
+
+  // Node-RED 로 data PUT ------------------------------------------------
+
   const checkResult = useMutation(
     (newAlgorithm) => postAlgorithm(newAlgorithm),
     {
@@ -316,11 +344,13 @@ function NewAlgorithm() {
     }
   );
 
+  
   const onClickRegisterBtn = () => {
     const newAlgorithm = {
       name,
       parameter: ["data"],
       content: functionString,
+      example: createDataObject(inputs),
     };
     // console.log(functionString);
     checkResult.mutate(newAlgorithm);
