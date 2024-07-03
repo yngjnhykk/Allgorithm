@@ -151,7 +151,7 @@ function AlgorithmTest() {
         console.error('Error running algorithm:', error);
       }
 
-    navi('/');
+      navi('/');
     }
   };
 
