@@ -102,7 +102,6 @@ function NewAlgorithm() {
   // ---------------------------------------------------------------------------------
 
   const addOption = (inputIndex) => {
-    console.log("addOption");
     const newinputs = inputs.map((input, idx) => {
       if (idx === inputIndex) {
         return {
@@ -189,7 +188,6 @@ function NewAlgorithm() {
   };
 
   const updateOutput = (index, key, value) => {
-    console.log(index, key, value);
     const newOutputs = [...outputs];
     newOutputs[index][key] = value;
     setOutputs(newOutputs);
@@ -202,7 +200,6 @@ function NewAlgorithm() {
   // ---------------------------------------------------------------------------------
 
   const addOutputOption = (outputIndex) => {
-    console.log("addOption");
     const newOutputs = outputs.map((output, idx) => {
       if (idx === outputIndex) {
         return {
