@@ -10,7 +10,7 @@ function NewAlgorithm() {
   const location = useLocation();
   // const reUse = location.state?.data; // 전달받은 데이터
   const reUse = ciiTestData;
-  console.log(reUse);
+  // console.log(reUse);
 
   const [name, setName] = useState(reUse?.name || "");
   const [info, setInfo] = useState(reUse?.info || "");
@@ -40,9 +40,7 @@ function NewAlgorithm() {
 
   // ---------------------------------------------------------------------------------
   //
-  //
   //   입력값
-  //
   //
   // ---------------------------------------------------------------------------------
 
@@ -99,9 +97,7 @@ function NewAlgorithm() {
 
   // ---------------------------------------------------------------------------------
   //
-  //
   //  입력값 옵션
-  //
   //
   // ---------------------------------------------------------------------------------
 
@@ -171,9 +167,7 @@ function NewAlgorithm() {
 
   // ---------------------------------------------------------------------------------
   //
-  //
   //   출력값
-  //
   //
   // ---------------------------------------------------------------------------------
 
@@ -203,9 +197,7 @@ function NewAlgorithm() {
 
   // ---------------------------------------------------------------------------------
   //
-  //
   //  출력값 옵션
-  //
   //
   // ---------------------------------------------------------------------------------
 
@@ -225,7 +217,6 @@ function NewAlgorithm() {
     setInputs(newOutputs);
   };
 
-  // 옵션 제거
   const removeOutputOption = (outputIndex, optionIndex) => {
     const newOutputs = outputs.map((output, idx) => {
       if (idx === outputIndex) {
@@ -264,18 +255,26 @@ function NewAlgorithm() {
     setOutputs(newOutputs);
   };
 
-  // content 저장 ----------------------------------------
+  // ---------------------------------------------------------------------------------
+  //
+  //  content
+  //
+  // ---------------------------------------------------------------------------------
 
   const updateContent = (newContent) => {
     setContent(newContent);
   };
 
-  // newAlgorithm 저장 ----------------------------------------
+  // ---------------------------------------------------------------------------------
+  //
+  //  new Alogrithm 저장
+  //
+  // ---------------------------------------------------------------------------------
 
+  // 알고리즘 내용 ( content +  ouput return 객체 ) 생성
   const outputsDisplay = outputs
     .map((output) => `  ${output.name} : ${output.parameter_name},\n`)
     .join("");
-
   const functionString = `
     ${content}
     return {
@@ -283,7 +282,7 @@ function NewAlgorithm() {
     };
   `;
 
-  // 예제 값으로 예제 객체 데이터 생성 ------------------------------------------------
+  // 예제 값(inputs 의 example)으로 예제 객체 데이터(example) 생성
 
   function createDataObject(inputs) {
     const data = {};
@@ -309,7 +308,11 @@ function NewAlgorithm() {
     return data;
   }
 
-  // Node-RED 로 data PUT ------------------------------------------------
+  // Node-RED 로 사용자가 작성한 새로운 알고리즘(newAlogrithm) PUT
+  // 사용자가 입력한 알고리즘 내용(content)으로 함수 생성 후,
+  // 입력한 입력 값의 예제(exmaple)로 함수 실행 후,
+  // 입력한 출력 값(outputs)대로 결과 confirm
+  // 맞다면, 새로운 알고리즘(newAlgorithm) 을 AlgorithmTest 페이지로 데이터 전송
 
   const checkResult = useMutation(
     (newAlgorithm) => postAlgorithm(newAlgorithm),
@@ -339,12 +342,13 @@ function NewAlgorithm() {
         }
       },
       onError: (error) => {
-        console.error("error", error);
+        alert("error", error);
       },
     }
   );
 
-  
+  // 알고리즘 등록 버튼 클릭
+
   const onClickRegisterBtn = () => {
     const newAlgorithm = {
       name,
@@ -352,11 +356,10 @@ function NewAlgorithm() {
       content: functionString,
       example: createDataObject(inputs),
     };
-    // console.log(functionString);
     checkResult.mutate(newAlgorithm);
   };
 
-  // ----------------------------------------------------------
+  // ====================================================================================
 
   return (
     <div className="p-12 w-full ">
@@ -375,28 +378,36 @@ function NewAlgorithm() {
         </div>
         <div className="col-span-3">
           <Define
+            // 이름
             name={name}
             updateName={updateName}
+            // 소개
             info={info}
             updateInfo={updateInfo}
+            // 입력 값
             inputs={inputs}
             addInput={addInput}
             removeInput={removeInput}
             updateInputTitle={updateInputTitle}
+            // 입력 값 옵션
             addOption={addOption}
             removeOption={removeOption}
             updateDetail={updateDetail}
             updateOption={updateOption}
-            content={content}
-            updateContent={updateContent}
-            onClickRegisterBtn={onClickRegisterBtn}
+            // 출력 값
             outputs={outputs}
             addOutput={addOutput}
             removeOutput={removeOutput}
             updateOutput={updateOutput}
+            // 출력 값 옵션
             addOutputOption={addOutputOption}
             removeOutputOption={removeOutputOption}
             updateOutputOption={updateOutputOption}
+            // 함수 내용
+            content={content}
+            updateContent={updateContent}
+            // 함수 등록
+            onClickRegisterBtn={onClickRegisterBtn}
           />
         </div>
       </div>

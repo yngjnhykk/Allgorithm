@@ -31,6 +31,7 @@ export const ciiTestData = {
         parameter_name: "dwt",
         type: "input",
         example: 69999,
+        options: [""],
       },
     },
     {
@@ -40,6 +41,7 @@ export const ciiTestData = {
         parameter_name: "gt",
         type: "input",
         example: 51164,
+        options: [""],
       },
     },
     {
@@ -100,6 +102,7 @@ export const ciiTestData = {
         parameter_name: "distance",
         type: "input",
         example: 61523,
+        options: [""],
       },
     },
     {
@@ -458,13 +461,4 @@ const grade = determineCIRating(
   attainedCII
 );
 `,
-};
-
-const data = {
-  distance: 61523,
-  dwt: 69999,
-  fuels: { diesel: 26, lfo: 5693 },
-  gt: 51164,
-  reduction_factor: "2024",
-  ship_type: "Bulk Carrier",
 };
