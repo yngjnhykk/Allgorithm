@@ -20,6 +20,7 @@ export const postAlgorithm = async (newAlgorithm) => {
     };
 
     const response = await axios.post(`${host}/allgo_test`, {
+
       data,
     });
     console.log(response.data);
