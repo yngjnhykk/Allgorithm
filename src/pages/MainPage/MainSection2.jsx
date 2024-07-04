@@ -6,7 +6,7 @@ function renderInput(input, key, formData, handleChange) {
   if (!input) return null;
 
   switch (input.detail.type) {
-    case 'string' :
+    case 'text' :
       return (
         <div key={key} className="flex mb-2.5">
           <label className="w-1/2 block my-auto">{input.name}</label>

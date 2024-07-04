@@ -11,7 +11,7 @@ function renderInput(input, key, formData, handleChange) {
   const val = input.detail.example || '';
 
   switch (input.detail.type) {
-    case 'input': // form_type : input
+    case 'text': // form_type : input
       return (
         <div key={key} className="flex mb-2.5">
           <label className="ms-3 w-1/2 block my-auto">{input.name}</label>
