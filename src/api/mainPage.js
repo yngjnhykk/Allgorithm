@@ -1,9 +1,9 @@
 import axios from "axios";
+const host = import.meta.env.VITE_API_HOST;
 
 export const algorithmList = async () => {
     try {
-        const response = await axios.post("http://118.129.145.98:1880/allgo_get");
-        // console.log(response.data);
+        const response = await axios.post(`${host}/allgo_get`);
         return response.data;
     } catch(err) {
         console.error(err);
@@ -14,10 +14,10 @@ export const algorithmList = async () => {
 
 export const getAlgorithmById = async (id) => {
     try {
-        const response = await axios.post("http://118.129.145.98:1880/allgo_getAlgorithm", {
+        const response = await axios.post(`${host}/allgo_getAlgorithm`, {
             "algorithm_id" : id
         });
-        console.log(response.data[0]);
+        console.log(response.data);
         return response.data;
     } catch(err) {
         console.error(err);
@@ -27,7 +27,7 @@ export const getAlgorithmById = async (id) => {
 
 export const runAlgorithm = async (formData) => {
     try {
-        const response = await axios.post("http://118.129.145.98:1880/allgo_run", formData);
+        const response = await axios.post(`${host}/allgo_run`, formData);
         console.log(response.data);
         return response.data;
     } catch (err) {

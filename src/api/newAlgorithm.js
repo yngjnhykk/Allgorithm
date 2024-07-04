@@ -1,4 +1,6 @@
 import axios from "axios";
+const host = import.meta.env.VITE_API_HOST;
+
 
 const convertEscapedStringToCode = (escapedString) => {
   // 백틱을 제거하고 문자열 내의 모든 필요한 이스케이프 처리를 진행
@@ -17,7 +19,8 @@ export const postAlgorithm = async (newAlgorithm) => {
       content: convertEscapedStringToCode(wrappedContent),
     };
 
-    const response = await axios.post("http://118.129.145.84:1880/allgo_test", {
+    const response = await axios.post(`${host}/allgo_test`, {
+
       data,
     });
     console.log(response.data);
