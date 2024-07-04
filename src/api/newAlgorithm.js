@@ -17,7 +17,7 @@ export const postAlgorithm = async (newAlgorithm) => {
       content: convertEscapedStringToCode(wrappedContent),
     };
 
-    const response = await axios.post("http://118.129.145.98:1880/allgo_test", {
+    const response = await axios.post("http://118.129.145.84:1880/allgo_test", {
       data,
     });
     console.log(response.data);
