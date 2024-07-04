@@ -78,7 +78,6 @@ function Input({
           className="flex-1 p-1 h-14 text-center border-[1px] border-gray-300 rounded w-full"
         >
           <option value="text">Text</option>
-          <option value="number">Number</option>
           <option value="object">Object</option>
           <option value="select">Select</option>
         </select>
