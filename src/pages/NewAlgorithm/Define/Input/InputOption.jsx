@@ -20,7 +20,7 @@ function InputOption({
             type="text"
             placeholder="option"
             value={option}
-            onChange={(e) => updateOption(inputIndex, e.target.value)}
+            onChange={(e) => updateOption(inputIndex, e.target.value, optionIndex)}
             className="flex-1 p-1 border rounded"
           />
           <div className="flex items-center">
@@ -50,7 +50,7 @@ function InputOption({
             placeholder="key"
             value={option.name}
             onChange={(e) =>
-              updateOption(inputIndex, optionIndex, e.target.value)
+              updateOption(inputIndex, e.target.value, optionIndex, "name")
             }
             className="flex-1 p-1 border rounded"
           />
@@ -59,7 +59,7 @@ function InputOption({
             placeholder="변수 명"
             value={option.parameter_name}
             onChange={(e) =>
-              updateOption(inputIndex, optionIndex, e.target.value)
+              updateOption(inputIndex, e.target.value, optionIndex, "parameter_name")
             }
             className="flex-1 p-1 border rounded"
           />
@@ -68,7 +68,7 @@ function InputOption({
             placeholder="예제 값"
             value={option.value}
             onChange={(e) =>
-              updateOption(inputIndex, optionIndex, e.target.value)
+              updateOption(inputIndex, e.target.value, optionIndex, "value")
             }
             className="flex-1 p-1 border rounded"
           />

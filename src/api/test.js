@@ -326,41 +326,41 @@ const findShipInfo = ({ type, GT, DWT }) => {
 };
 
 const { a, c, useMetric } = findShipInfo({
-  type: data.ship_type,
-  GT: data.gt,
-  DWT: data.dwt,
+  type: ship_type,
+  GT: gt,
+  DWT: dwt,
 });
 
-const capacity = useMetric === "DWT" ? data.dwt : data.gt;
-let reduction_factor = 0;
-switch (data.reduction_factor) {
-  case "2019":
+const capacity = useMetric === "DWT" ? dwt : gt;
+let reductionFactor = 0;
+switch (reduction_factor) {
+  case 2019:
     reduction_factor = 0;
     break;
-  case "2020":
-    reduction_factor = 1;
+  case 2020:
+    reductionFactor = 1;
     break;
-  case "2021":
-    reduction_factor = 2;
+  case 2021:
+    reductionFactor = 2;
     break;
-  case "2022":
-    reduction_factor = 3;
+  case 2022:
+    reductionFactor = 3;
     break;
-  case "2023":
-    reduction_factor = 5;
+  case 2023:
+    reductionFactor = 5;
     break;
-  case "2024":
-    reduction_factor = 7;
+  case 2024:
+    reductionFactor = 7;
     break;
-  case "2025":
-    reduction_factor = 9;
+  case 2025:
+    reductionFactor = 9;
     break;
-  case "2026":
-    reduction_factor = 11;
+  case 2026:
+    reductionFactor = 11;
     break;
 }
 const requiredCII = (
-  ((100 - reduction_factor) / 100) *
+  ((100 - reductionFactor) / 100) *
   a *
   Math.pow(capacity, -c)
 ).toFixed(2);
@@ -390,7 +390,7 @@ const calculateTotalCO2Emissions = (fuels) => {
   return totalEmissions;
 };
 
-const totalEmissions = calculateTotalCO2Emissions(data.fuels) * 1000000;
+const totalEmissions = calculateTotalCO2Emissions(fuels) * 1000000;
 
 const calculateCapacity = (shipInfo, totalDistance) => {
   const ship = shipTable.find((s) => s.type === shipInfo.ship_type);
@@ -402,11 +402,12 @@ const calculateCapacity = (shipInfo, totalDistance) => {
   const metric = ship.useMetric === "GT" ? shipInfo.gt : shipInfo.dwt;
   return metric * totalDistance;
 };
-const resultW = calculateCapacity(data, data.distance);
+const shipData = {"ship_type" : ship_type, "gt" : gt, "dwt" : dwt};
+const resultW = calculateCapacity(shipData, distance);
 const attainedCII = (totalEmissions / resultW).toFixed(2);
 
-const calculateCIRating = (shipType, capacity, requiredCII) => {
-  const ship = shipTable.find((s) => s.type === shipType);
+const calculateCIRating = (ship_type, capacity, requiredCII) => {
+  const ship = shipTable.find((s) => s.type === ship_type);
   if (!ship) {
     console.error("Ship type not found");
     return null;
@@ -431,8 +432,8 @@ const calculateCIRating = (shipType, capacity, requiredCII) => {
   return ratings;
 };
 
-const determineCIRating = (shipType, capacity, requiredCII, attainedCII) => {
-  const ratings = calculateCIRating(shipType, capacity, requiredCII);
+const determineCIRating = (ship_type, capacity, requiredCII, attainedCII) => {
+  const ratings = calculateCIRating(ship_type, capacity, requiredCII);
   if (!ratings) {
     return "Unable to determine rating: Ship type or capacity range not found.";
   }
@@ -450,12 +451,14 @@ const determineCIRating = (shipType, capacity, requiredCII, attainedCII) => {
   }
 };
 
-const rating = calculateCIRating(data.ship_type, capacity, requiredCII);
+const rating = calculateCIRating(ship_type, capacity, requiredCII);
 const grade = determineCIRating(
-  data.ship_type,
+  ship_type,
   capacity,
   requiredCII,
   attainedCII
 );
 `,
 };
+
+

@@ -77,7 +77,6 @@ function groupInputs(inputs) {
 
 // 입력 폼 생성기
 function FormGenerator({algorithmData, formData, handleChange}) {
-  console.log(algorithmData)
   if (!algorithmData || !algorithmData.algorithm_input) return null;
 
   const groupedInputs = groupInputs(algorithmData.algorithm_input);
@@ -102,7 +101,6 @@ function MainSection2({selectedAlgorithm}) {
   const [output, setOutput] = useState({});
 
   useEffect(() => {
-    console.log(selectedAlgorithm);
   }, [selectedAlgorithm]);
 
   // 폼 데이터 변경 핸들러
@@ -115,34 +113,34 @@ function MainSection2({selectedAlgorithm}) {
   };
 
   // formData를 원하는 형태로 변환하는 함수
-  const transformFormData = (formData) => {
-    const transformedData = {...formData};
-
-    // fuels 데이터 추출 및 처리
-    const fuels = {};
-    for (const key in transformedData) {
-      if (["diesel", "hfo", "lfo", "lpg-p", "lpg-b", "lng", "methanol", "ethanol"].includes(key)) {
-        fuels[key] = transformedData[key];
-        delete transformedData[key]; // 폼 데이터에서 fuels 키 제거
+  const transformFormData = (formData, data) => {
+    const transformedData = {
+      name: data.algorithm_name,
+      datas: {
       }
-    }
+    };
 
-    transformedData.name = selectedAlgorithm.algorithm_name;
-    transformedData.fuels = fuels;
+    data.algorithm_input.forEach(input => {
+      if (input.detail.type === 'object') {
+        transformedData.datas[input.detail.parameter_name] = {};
+        input.detail.options.forEach(option => {
+          transformedData.datas[input.detail.parameter_name][option.parameter_name] = formData[option.parameter_name] || '';
+        });
+      } else {
+        transformedData.datas[input.detail.parameter_name] = formData[input.detail.parameter_name] || '';
+      }
+    });
     return transformedData;
   };
 
   // 알고리즘 실행 버튼 클릭 핸들러
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form Data:', formData);
 
     try {
       const transformedData = transformFormData(formData, selectedAlgorithm);
-      console.log('Transformed Form Data:', transformedData);
 
       const response = await runAlgorithm(transformedData);
-      console.log('Algorithm result:', response);
 
       // response가 유효한지 확인
       if (response) {
