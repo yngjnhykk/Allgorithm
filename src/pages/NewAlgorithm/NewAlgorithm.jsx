@@ -1,20 +1,21 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import Preview from "./Preview";
 import Define from "./Define/Define";
 import { postAlgorithm } from "../../api/newAlgorithm";
 import { useMutation } from "react-query";
 import { useLocation, useNavigate } from "react-router-dom/dist";
-import { ciiTestData } from "../../api/test";
+// import { ciiTestData } from "../../api/test";
 
 function NewAlgorithm() {
   const location = useLocation();
-  // const reUse = location.state?.data; // 전달받은 데이터
-  const reUse = ciiTestData;
-  console.log(reUse);
+  const reUse = location.state?.data; // 전달받은 데이터
+  // const reUse = ciiTestData;
+  // console.log(reUse);
 
   const [name, setName] = useState(reUse?.name || "");
   const [info, setInfo] = useState(reUse?.info || "");
   const [inputs, setInputs] = useState(reUse?.inputs || []);
+  const [parameterNames, setParameterNames] = useState(reUse?.parameterNames || []);
 
   const [outputs, setOutputs] = useState(reUse?.outputs || []);
 
@@ -45,6 +46,10 @@ function NewAlgorithm() {
   //
   //
   // ---------------------------------------------------------------------------------
+
+  useEffect(() => {
+    setParameterNames(inputs.map(item => item.detail.parameter_name))
+  }, [inputs]);
 
   const addInput = () => {
     setInputs([
@@ -93,7 +98,6 @@ function NewAlgorithm() {
       }
       return input;
     });
-
     setInputs(newinputs);
   };
 
@@ -142,13 +146,22 @@ function NewAlgorithm() {
     setInputs(newinputs);
   };
 
-  const updateOption = (sectionIndex, optionIndex, newValue) => {
+  const updateOption = (sectionIndex, newValue, optionIndex, field) => {
     const newinputs = inputs.map((section, idx) => {
       if (idx === sectionIndex) {
-        // options 배열의 특정 인덱스의 값을 업데이트
+        // options 배열의 특정 인덱스의 값을 객체 형태로 업데이트
         const newOptions = section.detail.options.map((option, optIdx) => {
           if (optIdx === optionIndex) {
-            return newValue;
+            if (field) {
+              // 객체 형태의 옵션 (object 타입) 업데이트
+              return {
+                ...option,
+                [field]: newValue
+              };
+            } else {
+              // 단순 값의 옵션 (select 타입) 업데이트
+              return newValue;
+            }
           }
           return option;
         });
@@ -164,7 +177,6 @@ function NewAlgorithm() {
       }
       return section;
     });
-
     setInputs(newinputs);
   };
 
@@ -286,6 +298,7 @@ function NewAlgorithm() {
     const data = {};
 
     inputs.forEach((input) => {
+
       const parameterName = input.detail.parameter_name;
       const exampleValue = input.detail.example;
 
@@ -298,6 +311,7 @@ function NewAlgorithm() {
           objectData[option.parameter_name] = option.value;
         });
         data[parameterName] = objectData;
+
       } else if (parameterName && exampleValue !== undefined) {
         data[parameterName] = exampleValue;
       }
@@ -310,7 +324,7 @@ function NewAlgorithm() {
     (newAlgorithm) => postAlgorithm(newAlgorithm),
     {
       onSuccess: (data) => {
-        console.log(`data: ${data}`);
+
 
         let resultMessage = `입력하신 예제 값에 대한 결과입니다. 맞으시다면, '확인' 버튼을 눌러 다음 단계(알고리즘 확인)로 이동하세요.\n\n`;
 
@@ -328,6 +342,7 @@ function NewAlgorithm() {
                 inputs,
                 outputs,
                 content,
+                parameterNames
               },
             },
           });
@@ -340,9 +355,10 @@ function NewAlgorithm() {
   );
 
   const onClickRegisterBtn = () => {
+
     const newAlgorithm = {
       name,
-      parameter: ["data"],
+      parameter: [...parameterNames],
       content: functionString,
       example: createDataObject(inputs),
     };

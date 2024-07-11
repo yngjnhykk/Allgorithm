@@ -142,12 +142,12 @@ function AlgorithmTest() {
 
   const register = async() => {
     if (confirm('정말 등록 하시겠습니까?')) {
-
       try {
-        const transformedData = transformFormData(data);
-        const response = await registerAlgorithm(transformedData);
+
+        const response = await registerAlgorithm(data);
         alert('정상적으로 등록되었습니다.')
       } catch (error) {
+        alert('등록 실패')
         console.error('Error running algorithm:', error);
       }
 
@@ -155,20 +155,23 @@ function AlgorithmTest() {
     }
   };
 
-  const transformFormData = (datas) => {
-    const fuels = {};
-    const transformedData = {};
-
-    for (const key in datas) {
-      if (["diesel", "hfo", "lfo", "lpg-p", "lpg-b", "lng", "methanol", "ethanol"].includes(key)) {
-        fuels[key] = datas[key];
-      } else {
-        transformedData[key] = datas[key];
+  const transformFormData = (formData, data) => {
+    const transformedData = {
+      name: data.name,
+      datas: {
       }
-    }
+    };
 
-    transformedData.name = data.name;
-    transformedData.fuels = fuels;
+    data.inputs.forEach(input => {
+      if (input.detail.type === 'object') {
+        transformedData.datas[input.detail.parameter_name] = {};
+        input.detail.options.forEach(option => {
+          transformedData.datas[input.detail.parameter_name][option.parameter_name] = formData[option.parameter_name] || '';
+        });
+      } else {
+        transformedData.datas[input.detail.parameter_name] = formData[input.detail.parameter_name] || '';
+      }
+    });
     return transformedData;
   };
 

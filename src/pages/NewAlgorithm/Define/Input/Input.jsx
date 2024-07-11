@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import InputOption from "./InputOption";
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 
@@ -17,6 +17,12 @@ function Input({
   updateOption,
 }) {
   const [isVisible, setIsVisible] = useState(true);
+
+  useEffect(() => {
+    if (!detail.type) {
+      updateDetail(inputIndex, "type", "text");
+    }
+  }, [detail.type, inputIndex, updateDetail]);
 
   const toggleVisibility = () => {
     setIsVisible(!isVisible);
@@ -73,7 +79,7 @@ function Input({
         />
         {/* 타입 */}
         <select
-          value={detail.type}
+          value={detail.type || "text"}
           onChange={(e) => updateDetail(inputIndex, "type", e.target.value)}
           className="flex-1 p-1 h-14 text-center border-[1px] border-gray-300 rounded w-full"
         >
