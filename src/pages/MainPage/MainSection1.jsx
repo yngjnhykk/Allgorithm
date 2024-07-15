@@ -1,7 +1,7 @@
 import {algorithmList, getAlgorithmById} from "../../api/mainPage.js";
 import {useEffect, useState} from "react";
 
-function MainSection1({ setSelectedAlgorithm }) {
+function MainSection1({ setSelectedAlgorithm, refreshKey }) {
   const [algoList, setAlgoList] = useState([]);
 
   const getList = async () => {
@@ -27,7 +27,7 @@ function MainSection1({ setSelectedAlgorithm }) {
 
   useEffect(() => {
     getList(); // 컴포넌트가 마운트될 때 리스트 가져오기
-  }, []);
+  }, [refreshKey]);
 
   return (
     <div className="bg-gray-100 p-4 min-h-full">

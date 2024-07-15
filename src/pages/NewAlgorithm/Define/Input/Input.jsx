@@ -1,21 +1,21 @@
 import React, {useEffect, useState} from "react";
 import InputOption from "./InputOption";
-import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
+import {IoIosArrowUp, IoIosArrowDown} from "react-icons/io";
 
 function Input({
-  input,
-  detail,
-  inputIndex,
+                 input,
+                 detail,
+                 inputIndex,
 
-  removeInput,
-  updateInputTitle,
+                 removeInput,
+                 updateInputTitle,
 
-  addOption,
-  removeOption,
-  updateDetail,
+                 addOption,
+                 removeOption,
+                 updateDetail,
 
-  updateOption,
-}) {
+                 updateOption,
+               }) {
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
@@ -32,21 +32,24 @@ function Input({
     <div className="mt-8 mb-4 p-2  rounded">
       {/* 입력값 이름 */}
       <div className="flex flex-row justify-between mb-2">
-        <input
-          type="text"
-          placeholder="입력값..."
-          value={input.name}
-          name={input.name}
-          onChange={(e) => updateInputTitle(inputIndex, e.target.value)}
-          className="mb-2 p-1 text-lg border-none rounded w-2/3"
-        />
+        <div className={'w-full'}>
+          <span className={'text-red-400 text-xl'}>*</span>
+          <input
+            type="text"
+            placeholder="입력값..."
+            value={input.name}
+            name={input.name}
+            onChange={(e) => updateInputTitle(inputIndex, e.target.value)}
+            className="mb-2 p-1 text-lg border-b border-gray-300 rounded w-2/3"
+          />
+        </div>
         <div className="flex flex-row gap-4">
           {(detail.type === "object" || detail.type === "select") && (
             <button
               className="w-10 h-10 rounded text-black border flex items-center justify-center"
               onClick={() => toggleVisibility(input.name)}
             >
-              {isVisible ? <IoIosArrowUp /> : <IoIosArrowDown />}
+              {isVisible ? <IoIosArrowUp/> : <IoIosArrowDown/>}
             </button>
           )}
           <button
@@ -68,15 +71,18 @@ function Input({
           className="flex-1 p-1 h-14 text-center border-[1px] border-gray-300 rounded w-full"
         />
         {/* 변수명 */}
-        <input
-          type="text"
-          placeholder="변수명"
-          value={detail.parameter_name}
-          onChange={(e) =>
-            updateDetail(inputIndex, "parameter_name", e.target.value)
-          }
-          className="flex-1 p-1 h-14 text-center border-[1px] border-gray-300 rounded w-full"
-        />
+        <div className="flex-1 flex items-center relative">
+          <span className="ps-1 absolute left-1 top-1/2 transform -translate-y-1/2 text-red-400">*</span>
+          <input
+            type="text"
+            placeholder="변수명"
+            value={detail.parameter_name}
+            onChange={(e) =>
+              updateDetail(inputIndex, "parameter_name", e.target.value)
+            }
+            className="flex-1 p-1 h-14 text-center border-[1px] border-gray-300 rounded w-full"
+          />
+        </div>
         {/* 타입 */}
         <select
           value={detail.type || "text"}

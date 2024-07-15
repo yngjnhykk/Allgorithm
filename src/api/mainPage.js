@@ -35,3 +35,14 @@ export const runAlgorithm = async (formData) => {
         throw err;
     }
 };
+
+export const deleteAlgorithm = async (id) => {
+    try {
+        const response = await axios.post(`${host}/allgo_delete`, id);
+        console.log(response.data);
+        return response.data;
+    } catch (err) {
+        console.error(err);
+        throw err;
+    }
+};
