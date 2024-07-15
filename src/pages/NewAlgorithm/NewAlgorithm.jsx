@@ -11,7 +11,7 @@ function NewAlgorithm() {
   const reUse = location.state?.data; // 전달받은 데이터
   // const reUse = ciiTestData;
   // console.log(reUse);
-
+  console.log(reUse)
   const [name, setName] = useState(reUse?.name || "");
   const [info, setInfo] = useState(reUse?.info || "");
   const [inputs, setInputs] = useState(reUse?.inputs || []);
